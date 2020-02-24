@@ -14,9 +14,16 @@ namespace first_lab_Csharp
             menu();
         }
 
-        static void write_and_delete()    // функция на добавление новой строки
+        static void write()    // функция на добавление новой строки
         {
             int key = 0;
+            if (amount_of_elements == len_of_array)    // если массив заполнен (контроль длины массива)
+            {
+                Console.WriteLine("\n\n Массив строк забит, вы не можете больше в него что-либо писать,\n" +
+                                  "для продолжения нажмите любую кнопку.");
+                Console.ReadKey();
+                return;
+            }
             while (key != 48)
             {
                 Console.WriteLine("\n\nВведите " + (amount_of_elements + 1) + "-ю строку: ");
@@ -26,24 +33,40 @@ namespace first_lab_Csharp
                 key = (int) Console.ReadKey().KeyChar;
             }
         }
+
+        static void check()    // функция на добавление новой строки
+        {
+            int key = 0;
+            while (true)
+            {
+                Console.WriteLine("\n\nВведите какой элемент хотите просмотреть(или 0 если хотите выйти): ");
+                key = Int32.Parse(Console.ReadLine());
+                if (key == 0) return;
+                if (key <= amount_of_elements) Console.WriteLine("\nВаша строка - " + array_of_string[key - 1]);
+                else Console.WriteLine("\nВы ввели неверное значение индекса. Попробуйте ещё.");
+            }
+        }
+        
         
         static void menu()    // меню
         {
             while (true)
             {
                 Console.WriteLine("Меню управления программой:\n" +
-                                  "1 - работа с массиво (добавление строки);\n" +
+                                  "1 - работа с массивом (добавление строки);\n" +
+                                  "2 - просмотр выбранного элемента;\n" +
+                                  "3 - задача поэлементного сцепления двух строк;\n" +
                                   "Ваш выбор: ");
                 switch ((int)Console.ReadKey().KeyChar)        // считываем что ввел пользователь
                 {
                     case 49:
-                        write_and_delete();
+                        write();
                         break;
                     case 50:
-                        Console.WriteLine("sex");
+                        check();
                         break;
                     case 51:
-                        Console.WriteLine("sex");
+                        task1();
                         break;
                     case 27:
                         return;
