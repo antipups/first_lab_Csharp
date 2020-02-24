@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 
 namespace first_lab_Csharp
@@ -34,20 +36,26 @@ namespace first_lab_Csharp
             }
         }
 
-        static void check()    // функция на добавление новой строки
+        static void check()    // функция на вывод элемента массива или всего массива
         {
             int key = 0;
             while (true)
             {
-                Console.WriteLine("\n\nВведите какой элемент хотите просмотреть(или 0 если хотите выйти): ");
+                Console.WriteLine("\n\nВведите какой элемент хотите просмотреть(или -1 если хотите выйти): ");
                 key = Int32.Parse(Console.ReadLine());
-                if (key == 0) return;
-                if (key <= amount_of_elements) Console.WriteLine("\nВаша строка - " + array_of_string[key - 1]);
+                if (key == -1) return;
+                else if (key == 0)
+                {
+                    Console.WriteLine("\nВывожу все строки:\n");
+                    for (int i = 0; i < amount_of_elements; i++)
+                        Console.WriteLine((i + 1) + ") " + array_of_string[i]);
+                }
+                else if (key <= amount_of_elements) Console.WriteLine("\nВаша строка - " + array_of_string[key - 1]);
                 else Console.WriteLine("\nВы ввели неверное значение индекса. Попробуйте ещё.");
             }
         }
         
-        static void task1()    // функция на добавление новой строки
+        static void task1()    // функция на первую задачу
         {
             int first_index = 0, second_index = 0;
             do
@@ -74,17 +82,45 @@ namespace first_lab_Csharp
                 else break;
             }
             
-            Console.WriteLine(task_string);
+            Console.WriteLine("\nНовая строка - " + task_string);
+        }
+        
+        static void task2()    // функция на первую задачу
+        {
+            int first_index = 0, second_index = 0;
+            do
+            {
+                Console.WriteLine("\n\nВведите ИНДЕКС первой строки: ");
+                first_index = Int32.Parse(Console.ReadLine());
+            } while (first_index > amount_of_elements || first_index < 0);
+
+            do
+            {
+                Console.WriteLine("\n\nВведите ИНДЕКС второй строки: ");
+                second_index = Int32.Parse(Console.ReadLine());
+            } while (second_index > amount_of_elements || second_index < 0);
+            
+            char[] test_array = array_of_string[first_index].ToCharArray();
+            char[] test_array1 = array_of_string[second_index].ToCharArray();
+            
+            var ls = new List<char>();
+            ls.AddRange(test_array);
+            ls.AddRange(test_array1);
+            var uniques = ls.Distinct();
+            Console.WriteLine("\nНовая строка: ");
+            foreach (var VARIABLE in uniques)
+                Console.Write(VARIABLE);
         }
         
         static void menu()    // меню
         {
             while (true)
             {
-                Console.WriteLine("Меню управления программой:\n" +
+                Console.WriteLine("\n\nМеню управления программой:\n" +
                                   "1 - работа с массивом (добавление строки);\n" +
                                   "2 - просмотр выбранного элемента;\n" +
                                   "3 - задача поэлементного сцепления двух строк;\n" +
+                                  "4 - задача на сложение двух двух строк с исключением дубликатов;\n" +
                                   "Ваш выбор: ");
                 switch ((int)Console.ReadKey().KeyChar)        // считываем что ввел пользователь
                 {
@@ -96,6 +132,9 @@ namespace first_lab_Csharp
                         break;
                     case 51:
                         task1();
+                        break;
+                    case 52:
+                        task2();
                         break;
                     case 27:
                         return;
