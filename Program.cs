@@ -26,10 +26,14 @@ namespace first_lab_Csharp
                 Console.ReadKey();
                 return;
             }
+
+            string temp_string;
             while (key != 48)
             {
                 Console.WriteLine("\n\nВведите " + (amount_of_elements + 1) + "-ю строку: ");
-                array_of_string[amount_of_elements] = Console.ReadLine();
+                temp_string = Console.ReadLine();
+                if (temp_string != null && temp_string.Length == 0) continue;
+                array_of_string[amount_of_elements] = temp_string;
                 amount_of_elements++;
                 Console.WriteLine("\nХотите продолжить вводить новые строки? (1 - да, 0 - нет)");
                 key = (int) Console.ReadKey().KeyChar;
@@ -42,7 +46,15 @@ namespace first_lab_Csharp
             while (true)
             {
                 Console.WriteLine("\n\nВведите какой элемент хотите просмотреть(или -1 если хотите выйти): ");
-                key = Int32.Parse(Console.ReadLine());
+                try
+                {
+                    key = Int32.Parse(Console.ReadLine());
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                    continue;
+                }
                 if (key == -1) return;
                 else if (key == 0)
                 {
@@ -61,13 +73,29 @@ namespace first_lab_Csharp
             do
             {
                 Console.WriteLine("\n\nВведите ИНДЕКС первой строки: ");
-                first_index = Int32.Parse(Console.ReadLine());
+                try
+                {
+                    first_index = Int32.Parse(Console.ReadLine());
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                    first_index = -1;
+                }
             } while (first_index > amount_of_elements || first_index < 0);
 
             do
             {
                 Console.WriteLine("\n\nВведите ИНДЕКС второй строки: ");
-                second_index = Int32.Parse(Console.ReadLine());
+                try
+                {
+                    second_index = Int32.Parse(Console.ReadLine());
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                    second_index = -1;
+                }
             } while (second_index > amount_of_elements || second_index < 0);
 
             string task_string = new string("");
@@ -91,13 +119,29 @@ namespace first_lab_Csharp
             do
             {
                 Console.WriteLine("\n\nВведите ИНДЕКС первой строки: ");
-                first_index = Int32.Parse(Console.ReadLine());
+                try
+                {
+                    first_index = Int32.Parse(Console.ReadLine());
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                    first_index = -1;
+                }
             } while (first_index > amount_of_elements || first_index < 0);
 
             do
             {
                 Console.WriteLine("\n\nВведите ИНДЕКС второй строки: ");
-                second_index = Int32.Parse(Console.ReadLine());
+                try
+                {
+                    second_index = Int32.Parse(Console.ReadLine());
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                    second_index = -1;
+                }
             } while (second_index > amount_of_elements || second_index < 0);
             
             char[] test_array = array_of_string[first_index].ToCharArray();
@@ -121,6 +165,7 @@ namespace first_lab_Csharp
                                   "2 - просмотр выбранного элемента;\n" +
                                   "3 - задача поэлементного сцепления двух строк;\n" +
                                   "4 - задача на сложение двух двух строк с исключением дубликатов;\n" +
+                                  "ESC - выход;\n" +
                                   "Ваш выбор: ");
                 switch ((int)Console.ReadKey().KeyChar)        // считываем что ввел пользователь
                 {
