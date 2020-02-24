@@ -47,6 +47,35 @@ namespace first_lab_Csharp
             }
         }
         
+        static void task1()    // функция на добавление новой строки
+        {
+            int first_index = 0, second_index = 0;
+            do
+            {
+                Console.WriteLine("\n\nВведите ИНДЕКС первой строки: ");
+                first_index = Int32.Parse(Console.ReadLine());
+            } while (first_index > amount_of_elements || first_index < 0);
+
+            do
+            {
+                Console.WriteLine("\n\nВведите ИНДЕКС второй строки: ");
+                second_index = Int32.Parse(Console.ReadLine());
+            } while (second_index > amount_of_elements || second_index < 0);
+
+            string task_string = new string("");
+
+            for (int i = 0; i < array_of_string[first_index].Length; i++)
+            {
+                if (i != array_of_string[first_index].Length && i != array_of_string[second_index].Length)
+                {
+                    task_string += array_of_string[first_index][i];    // c#шарп тупой
+                    task_string += array_of_string[second_index][i];   
+                }
+                else break;
+            }
+            
+            Console.WriteLine(task_string);
+        }
         
         static void menu()    // меню
         {
